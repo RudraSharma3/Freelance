@@ -42,8 +42,7 @@ export default function Proof() {
             ))}
           </div>
           <p className="mt-6 text-xs text-text-tertiary">
-            [PLACEHOLDER — ADD REAL INFORMATION]: named testimonials and before/after examples
-            can go here once shared.
+            Every solution is custom-built with production-grade reliability, clean architecture, and rapid execution.
           </p>
         </div>
       </div>

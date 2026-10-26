@@ -17,7 +17,7 @@ export const SITE = {
     "Rudra Sharma helps students, professionals and small teams turn messy career, technical and business problems into usable solutions — across AI, data engineering, automation and web.",
   peopleHelped: 13, // update this single number when it changes
   // [PLACEHOLDER — ADD REAL INFORMATION]: set NEXT_PUBLIC_SITE_URL once you have a domain
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://rudrasharma.dev",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://freelance-kappa-orpin.vercel.app",
 };
 
 export const LINKS = {
