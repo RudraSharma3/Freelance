@@ -23,7 +23,7 @@ export class SupabaseAnalyticsStore implements AnalyticsStore {
 
   async recordEvent(event: TrackedEvent): Promise<void> {
     if (event.testMode) return;
-    const { error } = await this.client.from("events").insert({
+    const payload: Record<string, unknown> = {
       name: event.name,
       path: event.path,
       visitor_id: event.visitorId,
@@ -33,12 +33,21 @@ export class SupabaseAnalyticsStore implements AnalyticsStore {
       utm: event.utm ?? null,
       country: event.country ?? null,
       meta: event.meta ?? null,
-    });
-    if (error) throw new Error(error.message);
+    };
+    const { error } = await this.client.from("events").insert(payload);
+    if (error) {
+      if (error.message.includes("country")) {
+        delete payload.country;
+        const retry = await this.client.from("events").insert(payload);
+        if (!retry.error) return;
+        throw new Error(retry.error.message);
+      }
+      throw new Error(error.message);
+    }
   }
 
   async recordLead(lead: LeadSubmission): Promise<void> {
-    const { error } = await this.client.from("leads").insert({
+    const payload: Record<string, unknown> = {
       id: lead.id,
       ts: new Date(lead.timestamp).toISOString(),
       need: lead.need,
@@ -50,8 +59,17 @@ export class SupabaseAnalyticsStore implements AnalyticsStore {
       utm: lead.utm ?? null,
       country: lead.country ?? null,
       session_id: lead.sessionId,
-    });
-    if (error) throw new Error(error.message);
+    };
+    const { error } = await this.client.from("leads").insert(payload);
+    if (error) {
+      if (error.message.includes("country")) {
+        delete payload.country;
+        const retry = await this.client.from("leads").insert(payload);
+        if (!retry.error) return;
+        throw new Error(retry.error.message);
+      }
+      throw new Error(error.message);
+    }
   }
 
   async getEvents(range: { from: number; to: number }): Promise<TrackedEvent[]> {

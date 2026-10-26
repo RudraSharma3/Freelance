@@ -78,7 +78,15 @@ export default function ProjectIntake() {
       });
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
-        setError(data.error === "invalid_email" ? "That email doesn't look right." : "Something went wrong — try again.");
+        if (data.error === "invalid_email") {
+          setError("That email doesn't look right.");
+        } else if (data.error === "rate_limited") {
+          setError("Too many attempts. Please wait a moment and try again.");
+        } else if (data.message) {
+          setError(data.message);
+        } else {
+          setError("Something went wrong — try again.");
+        }
         setSubmitting(false);
         return;
       }

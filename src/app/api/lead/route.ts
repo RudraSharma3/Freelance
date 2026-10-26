@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getStore, AnalyticsConfigError } from "@/lib/store";
+import { getStore } from "@/lib/store";
 import { rateLimit, getClientKey } from "@/lib/rate-limit";
 import { sanitizeString, sanitizeId, sanitizeUtm } from "@/lib/sanitize";
 import { getCountryFromRequest } from "@/lib/geo";
@@ -58,25 +58,27 @@ export async function POST(req: Request) {
     sessionId,
   };
 
+  // 1. Deliver the inquiry directly via email (Primary delivery)
+  const emailResult = await notifyNewLead(lead);
+
+  // 2. Best-effort backup save to local/database store (never blocks submission)
   try {
     await getStore().recordLead(lead);
   } catch (err) {
-    if (err instanceof AnalyticsConfigError) {
-      console.error("[analytics config error]", err.message);
-      return NextResponse.json(
-        { error: "not_configured", message: "Analytics storage isn't configured on the server yet." },
-        { status: 500 }
-      );
-    }
-    console.error("lead error", err);
-    return NextResponse.json({ error: "store_error" }, { status: 500 });
+    console.warn("[lead backup store note]:", err instanceof Error ? err.message : err);
   }
 
-  // The lead is already safely stored in Supabase at this point — that's
-  // the source of truth. Email is a best-effort notification on top of it:
-  // notifyNewLead() never throws, so nothing below can turn this successful
-  // submission into a failed one, regardless of what happens with Resend.
-  await notifyNewLead(lead);
+  // 3. Return success if email was sent or in development fallback mode
+  if (emailResult.sent) {
+    return NextResponse.json({ ok: true });
+  }
 
-  return NextResponse.json({ ok: true });
+  // If email was explicitly configured but failed to deliver:
+  return NextResponse.json(
+    {
+      error: "email_error",
+      message: emailResult.reason || "Unable to send inquiry email right now. Please try again or reach out directly.",
+    },
+    { status: 502 }
+  );
 }

@@ -77,8 +77,8 @@ export async function POST(req: Request) {
       // Public-facing: don't leak infra details, don't 500 the visitor's page.
       return NextResponse.json({ ok: false }, { status: 202 });
     }
-    console.error("track error", err);
-    return NextResponse.json({ error: "store_error" }, { status: 500 });
+    console.warn("[track warning]:", err instanceof Error ? err.message : err);
+    return NextResponse.json({ ok: false }, { status: 202 });
   }
 
   return NextResponse.json({ ok: true });
