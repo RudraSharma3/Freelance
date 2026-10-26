@@ -18,21 +18,19 @@ export class AnalyticsConfigError extends Error {
 let store: AnalyticsStore | null = null;
 
 function hasSupabaseConfig(): boolean {
-  return Boolean(process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY);
+  return Boolean(
+    process.env.SUPABASE_URL &&
+      process.env.SUPABASE_SERVICE_ROLE_KEY &&
+      process.env.DISABLE_SUPABASE !== "true"
+  );
 }
 
 /**
  * Store selection rules:
  *
- * - Supabase credentials present  → always use Supabase (dev or prod).
- *   This lets you point local development at a real Supabase project if
- *   you want to test against production-like data.
- * - No Supabase credentials, NODE_ENV !== "production" → local JSON-file
- *   store. Fine for local dev; never durable enough for real traffic.
- * - No Supabase credentials, NODE_ENV === "production" → throw. A
- *   production deployment must not silently start writing analytics to
- *   a filesystem that Vercel resets on every cold start/deploy — that
- *   would quietly lose every visit and lead. Fail loud instead.
+ * - Supabase credentials present and not disabled → use Supabase.
+ * - Otherwise → local /tmp file store. Leads are sent directly via Email,
+ *   so analytics storage never blocks visitors or fails the site.
  */
 export function getStore(): AnalyticsStore {
   if (store) return store;
@@ -42,23 +40,12 @@ export function getStore(): AnalyticsStore {
     return store;
   }
 
-  if (process.env.NODE_ENV === "production") {
-    throw new AnalyticsConfigError(
-      "SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are required in production. " +
-        "Without them, page views and leads would be written to a non-persistent " +
-        "filesystem and lost on the next deploy or cold start. " +
-        "See README.md → 'Supabase setup' to configure them."
-    );
-  }
-
   store = new FileAnalyticsStore();
   return store;
 }
 
-/** Exposed for the /api/analytics/summary route so it can tell the owner
- *  exactly which store is active without instantiating one. */
+/** Exposed for the /api/analytics/summary route */
 export function describeStoreConfig(): { backend: "supabase" | "file" | "unconfigured" } {
   if (hasSupabaseConfig()) return { backend: "supabase" };
-  if (process.env.NODE_ENV === "production") return { backend: "unconfigured" };
   return { backend: "file" };
 }

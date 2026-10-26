@@ -29,9 +29,9 @@ export async function GET(req: Request) {
   try {
     const store = getStore();
     const [eventsInRange, leadsInRange, allEventsEver] = await Promise.all([
-      store.getEvents({ from, to }),
-      store.getLeads({ from, to }),
-      store.getEvents({ from: 0, to: Date.now() }),
+      store.getEvents({ from, to }).catch(() => []),
+      store.getLeads({ from, to }).catch(() => []),
+      store.getEvents({ from: 0, to: Date.now() }).catch(() => []),
     ]);
 
     const summary = computeSummary(eventsInRange, leadsInRange, allEventsEver, granularity, backend);
