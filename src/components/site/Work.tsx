@@ -1,19 +1,21 @@
 "use client";
 
 import { useCallback, useRef, useState, type KeyboardEvent } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { CASE_STUDIES, WORK_TAGS, type CaseStudy, type WorkTag } from "@/data/caseStudies";
 import Reveal from "@/components/site/Reveal";
+import Label from "@/components/site/Label";
 import Sheet from "@/components/site/Sheet";
 import { track } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
+import { useReduce } from "@/lib/motion";
 
 type Filter = "All" | WorkTag;
 const FILTERS: Filter[] = ["All", ...WORK_TAGS];
 
 /** Work by category: tabs cross-fade the list; each project opens a breakdown. */
 export default function Work() {
-  const reduce = useReducedMotion();
+  const reduce = useReduce();
   const [filter, setFilter] = useState<Filter>("All");
   const [active, setActive] = useState<CaseStudy | null>(null);
   const close = useCallback(() => setActive(null), []);
@@ -44,8 +46,8 @@ export default function Work() {
       <div className="wrap">
         <div className="grid gap-6 lg:grid-cols-12 lg:items-end">
           <Reveal className="lg:col-span-7">
-            <p className="eyebrow">Selected work</p>
-            <h2 className="mt-5 font-display text-[clamp(2.2rem,4.6vw,3.6rem)] font-bold leading-[1.02] tracking-[-0.03em]">
+            <Label>Selected work</Label>
+            <h2 className="mt-6 font-display text-[clamp(2.2rem,4.6vw,3.6rem)] font-bold leading-[1.02] tracking-[-0.03em]">
               Things we can point to.
             </h2>
           </Reveal>

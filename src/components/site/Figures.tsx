@@ -1,8 +1,9 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import type { ReactNode } from "react";
 import type { ServiceGroup } from "@/data/services";
+import { useReduce } from "@/lib/motion";
 
 /**
  * Small drawn illustrations for each service group. They're diagrams of the
@@ -11,7 +12,7 @@ import type { ServiceGroup } from "@/data/services";
  */
 
 function Part({ i, children, className }: { i: number; children: ReactNode; className?: string }) {
-  const reduce = useReducedMotion();
+  const reduce = useReduce();
   return (
     <motion.div
       className={className}

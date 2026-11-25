@@ -5,6 +5,8 @@ import "./globals.css";
 import { SITE, LINKS } from "@/data/config";
 import PageViewTracker from "@/components/PageViewTracker";
 import EasterEgg from "@/components/easter-egg/EasterEgg";
+import SmoothScroll from "@/components/site/SmoothScroll";
+import MotionRoot from "@/components/site/MotionRoot";
 
 const bricolage = Bricolage_Grotesque({
   variable: "--font-bricolage",
@@ -83,7 +85,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="antialiased">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
         <PageViewTracker />
-        {children}
+        <SmoothScroll />
+        <MotionRoot>{children}</MotionRoot>
         <EasterEgg />
         {/* Vercel Analytics: a supplementary, edge-collected reliability
             check alongside the custom dashboard — see README "Analytics

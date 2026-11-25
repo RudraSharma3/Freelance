@@ -1,7 +1,9 @@
 "use client";
 
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, type ReactNode } from "react";
+import { lockScroll } from "@/lib/scroll";
+import { useReduce } from "@/lib/motion";
 
 /**
  * The "click to see more" view: slides up over the page. Esc or the backdrop
@@ -18,7 +20,7 @@ export default function Sheet({
   label: string;
   children: ReactNode;
 }) {
-  const reduce = useReducedMotion();
+  const reduce = useReduce();
   const panelRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
 
@@ -44,12 +46,11 @@ export default function Sheet({
       }
     };
     document.addEventListener("keydown", onKey);
-    const prev = document.documentElement.style.overflow;
-    document.documentElement.style.overflow = "hidden";
+    lockScroll(true);
     closeRef.current?.focus({ preventScroll: true });
     return () => {
       document.removeEventListener("keydown", onKey);
-      document.documentElement.style.overflow = prev;
+      lockScroll(false);
       opener?.focus({ preventScroll: true });
     };
   }, [open, onClose]);
@@ -74,6 +75,7 @@ export default function Sheet({
             ref={panelRef}
             role="dialog"
             aria-modal="true"
+            data-lenis-prevent
             aria-label={label}
             className="relative max-h-[90svh] w-full max-w-3xl overflow-y-auto overscroll-contain rounded-t-[28px] bg-bg-elevated px-5 pb-10 pt-6 shadow-[0_-20px_60px_-30px_rgba(22,22,26,0.35)] md:rounded-[28px] md:px-12 md:pb-12 md:pt-10"
             initial={{ y: reduce ? 0 : 48, opacity: 0 }}

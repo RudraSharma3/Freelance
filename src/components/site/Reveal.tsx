@@ -1,7 +1,8 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import type { ReactNode } from "react";
+import { useReduce } from "@/lib/motion";
 
 /** Fade + small rise when scrolled into view. Plays once. */
 export default function Reveal({
@@ -15,7 +16,7 @@ export default function Reveal({
   className?: string;
   as?: "div" | "li" | "article";
 }) {
-  const reduce = useReducedMotion();
+  const reduce = useReduce();
   const Tag = motion[as];
   return (
     <Tag
