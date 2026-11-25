@@ -43,7 +43,7 @@ export default function Hero() {
       <motion.div style={reduce ? undefined : { y, opacity, scale }} className="wrap pb-16 text-center sm:pb-24">
         <p className="fade-up inline-flex items-center gap-2.5 rounded-full border border-border bg-bg-elevated px-4 py-2 text-[13px] font-medium text-text-secondary" style={d(0.15)}>
           <i className="ping relative h-2 w-2 rounded-full bg-signal text-signal" aria-hidden />
-          Taking new projects · Jaipur · Remote
+          Taking new projects · Working remotely
         </p>
 
         <h1 className="mx-auto mt-8 max-w-[13ch] font-display text-[clamp(3.1rem,9.6vw,8.6rem)] font-bold leading-[0.95] tracking-[-0.04em]">
@@ -52,7 +52,7 @@ export default function Hero() {
         </h1>
 
         <p className="fade-up mx-auto mt-8 max-w-[36rem] text-lg leading-relaxed text-text-secondary sm:text-xl" style={d(1.05)}>
-          A small freelance team from Jaipur. Design, development and testing under one roof, with AI and data work when a
+          A small freelance team. Design, development and testing under one roof, with AI and data work when a
           project needs it.
         </p>
 

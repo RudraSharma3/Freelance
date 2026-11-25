@@ -10,7 +10,7 @@ export default function Footer() {
         <div>
           <p className="text-[15px] font-semibold">{SITE.tagline}</p>
           <p className="mt-1 text-sm text-text-secondary">
-            {SITE.role} · {SITE.location}
+            {SITE.role}
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-[15px] text-text-secondary">

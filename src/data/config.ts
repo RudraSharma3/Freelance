@@ -9,10 +9,9 @@ export const SITE = {
   name: "Brief & Build",
   handle: "brief_and_build", // shown in the `whoami` easter egg
   role: "Design, development, testing, AI and data",
-  location: "Jaipur, India",
   tagline: "You bring the problem. We build the fix.",
   description:
-    "Brief & Build is a small freelance team from Jaipur. Design, development and testing under one roof, with AI and data engineering when a project needs it: websites and apps, college projects, data cleanup and automation, resumes and LinkedIn.",
+    "Brief & Build is a small freelance team. Design, development and testing under one roof, with AI and data engineering when a project needs it: websites and apps, college projects, data cleanup and automation, resumes and LinkedIn.",
   peopleHelped: 13, // update this single number when it changes
   // Set NEXT_PUBLIC_SITE_URL once you have a domain
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://freelance-kappa-orpin.vercel.app",
