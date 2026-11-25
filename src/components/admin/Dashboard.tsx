@@ -186,7 +186,7 @@ export default function Dashboard() {
                 key={g}
                 onClick={() => setGranularity(g)}
                 className={`rounded-full px-3 py-1 text-xs capitalize transition-colors ${
-                  granularity === g ? "bg-accent text-[#161006]" : "text-text-tertiary"
+                  granularity === g ? "bg-accent text-white" : "text-text-tertiary"
                 }`}
               >
                 {g}
@@ -196,7 +196,7 @@ export default function Dashboard() {
         </div>
 
         {loading && <p className="mt-10 text-sm text-text-tertiary">Loading…</p>}
-        {error && <p className="mt-10 text-sm text-red-400">{error}</p>}
+        {error && <p className="mt-10 text-sm text-red-700">{error}</p>}
 
         {data && (
           <div className="mt-8 space-y-10">
