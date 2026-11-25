@@ -1,6 +1,7 @@
 import { Resend } from "resend";
 import nodemailer from "nodemailer";
 import type { LeadSubmission } from "@/types/analytics";
+import { SITE } from "@/data/config";
 
 /**
  * Direct Email delivery for project inquiries.
@@ -26,7 +27,7 @@ function getOwnerEmail(): string {
 function getFromEmail(): string {
   const user = process.env.EMAIL_USER || process.env.SMTP_USER || process.env.GMAIL_USER;
   if (user) {
-    return `"Rudra Sharma" <${user}>`;
+    return `"${SITE.name}" <${user}>`;
   }
   return (
     process.env.RESEND_FROM_EMAIL ||
@@ -175,7 +176,7 @@ export async function sendClientConfirmationEmail(lead: LeadSubmission): Promise
       <p style="font-size: 15px;">Hi ${escapeHtml(lead.name.split(" ")[0] || lead.name)},</p>
       <p style="font-size: 15px;">Thanks for reaching out! We've received your project inquiry about <strong>${escapeHtml(lead.need)}</strong>.</p>
       <p style="font-size: 15px;">We'll review your requirements and follow up with you shortly${lead.timeline ? ` (timeline: ${escapeHtml(lead.timeline)})` : ""}.</p>
-      <p style="margin-top: 24px; font-size: 15px; color: #555;">Best regards,<br><strong>Rudra Sharma &amp; team</strong></p>
+      <p style="margin-top: 24px; font-size: 15px; color: #555;">Best regards,<br><strong>The ${escapeHtml(SITE.name)} team</strong></p>
     </div>
   `;
 

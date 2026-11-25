@@ -41,8 +41,8 @@ export default function Brief() {
               What are you trying to solve?
             </h2>
             <p className="mt-6 max-w-[30rem] text-lg leading-relaxed text-text-secondary">
-              Find the line that sounds like you. Open it to see what we&apos;d do, what you get, and who on the team picks it
-              up.
+              Find the line that sounds like you. Open it to see what we&apos;d do, what you get, and which part of the team
+              picks it up.
             </p>
           </Reveal>
         </div>

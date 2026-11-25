@@ -119,13 +119,12 @@ export default function ProjectIntake() {
     <section id="start" className="section">
       <div className="wrap grid gap-12 lg:grid-cols-12 lg:gap-8">
         <Reveal className="lg:col-span-5">
-          <p className="eyebrow">06 · Start a project</p>
+          <p className="eyebrow">05 · Start a project</p>
           <h2 className="mt-5 font-display text-[clamp(2.2rem,4.6vw,3.6rem)] font-bold leading-[1.02] tracking-[-0.03em]">
             Tell us what you need.
           </h2>
           <p className="mt-6 max-w-[28rem] text-lg leading-relaxed text-text-secondary">
-            Four short steps. The project manager reads every one and replies with next steps, or an honest &ldquo;this isn&apos;t
-            for us&rdquo;.
+            Four short steps. We read every one and reply with next steps, or an honest &ldquo;this isn&apos;t for us&rdquo;.
           </p>
         </Reveal>
 

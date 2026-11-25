@@ -1,4 +1,5 @@
-import { TEAM, ROLE_COLOR } from "@/data/team";
+import { DISCIPLINES, DISCIPLINE_COLOR } from "@/data/disciplines";
+import { CASE_STUDIES } from "@/data/caseStudies";
 import StartButton, { LinkButton } from "@/components/site/StartButton";
 import ScrollCue from "@/components/site/ScrollCue";
 
@@ -7,8 +8,8 @@ const d = (s: number) => ({ ["--d" as string]: `${s}s` });
 const CONTENTS = [
   ["Start here", "#start-here"],
   ["Services", "#services"],
-  ["The team", "#team"],
-  ["Work", "#work"],
+  ["Under one roof", "#studio"],
+  ...(CASE_STUDIES.length ? [["Work", "#work"]] : []),
   ["How we work", "#process"],
   ["Start a project", "#start"],
 ];
@@ -19,7 +20,7 @@ export default function Opening() {
     <section id="top" className="relative flex min-h-svh flex-col justify-center pb-24 pt-28">
       <div className="wrap">
         <p className="eyebrow rise" style={d(0.3)}>
-          Freelance team · Jaipur · Remote
+          Freelance studio · Jaipur · Remote
         </p>
         <h1
           className="rise mt-6 max-w-[16ch] font-display text-[clamp(3.1rem,9vw,7.75rem)] font-bold leading-[0.92] tracking-[-0.035em]"
@@ -32,9 +33,8 @@ export default function Opening() {
         <div className="mt-9 grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_17rem] lg:gap-16">
           <div>
             <p className="rise max-w-[38rem] text-lg leading-relaxed text-text-secondary sm:text-xl" style={d(1.2)}>
-              A small team from Jaipur: design, development and testing, led by{" "}
-              <span className="font-semibold text-text-primary">Rudra Sharma</span>, an ML engineer. We take on websites and
-              apps, college projects, data cleanup and automation, and resumes and LinkedIn profiles.
+              A small freelance team from Jaipur. Design, development and testing under one roof, with AI and data work when a
+              project needs it. Websites and apps, college projects, data cleanup and automation, resumes and LinkedIn.
             </p>
             <div className="rise mt-8 flex flex-wrap items-center gap-3" style={d(1.45)}>
               <StartButton size="lg" from="hero">
@@ -52,17 +52,13 @@ export default function Opening() {
                 <i className="ping relative h-2 w-2 rounded-full bg-signal text-signal" aria-hidden />
                 Taking new projects
               </span>
-              <span className="inline-flex items-center gap-2" aria-label={`Team roles: ${TEAM.map((m) => m.short).join(", ")}`}>
-                <span className="flex" aria-hidden>
-                  {TEAM.map((m) => (
-                    <i
-                      key={m.id}
-                      className="-ml-1 h-4 w-4 rounded-full border-2 border-bg first:ml-0"
-                      style={{ background: ROLE_COLOR[m.id] }}
-                    />
-                  ))}
-                </span>
-                {TEAM.length} roles, one team
+              <span className="inline-flex flex-wrap items-center gap-x-3 gap-y-1">
+                {DISCIPLINES.slice(0, 4).map((x) => (
+                  <span key={x.id} className="inline-flex items-center gap-1.5">
+                    <i className="h-2 w-2 rounded-[2px]" style={{ background: DISCIPLINE_COLOR[x.id] }} aria-hidden />
+                    {x.name}
+                  </span>
+                ))}
               </span>
             </div>
           </div>

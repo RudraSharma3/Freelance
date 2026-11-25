@@ -1,14 +1,15 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { SITE } from "@/data/config";
+import { CASE_STUDIES } from "@/data/caseStudies";
+import Brand from "@/components/site/Brand";
 import StartButton from "@/components/site/StartButton";
 import { cn } from "@/lib/utils";
 
 const LINKS_NAV = [
   { href: "#services", label: "Services" },
-  { href: "#team", label: "Team" },
-  { href: "#work", label: "Work" },
+  { href: "#studio", label: "Studio" },
+  ...(CASE_STUDIES.length ? [{ href: "#work", label: "Work" }] : []),
   { href: "#process", label: "Process" },
 ];
 
@@ -49,7 +50,7 @@ export default function Nav() {
       (entries) => entries.forEach((e) => e.isIntersecting && setActive("#" + e.target.id)),
       { rootMargin: "-45% 0px -50% 0px" }
     );
-    ["start-here", "services", "team", "work", "process", "start", "contact"].forEach((id) => {
+    ["start-here", "services", "studio", "work", "process", "start", "contact"].forEach((id) => {
       const el = document.getElementById(id);
       if (el) spy.observe(el);
     });
@@ -80,9 +81,8 @@ export default function Nav() {
         )}
       >
         <nav className="wrap flex h-16 items-center justify-between gap-6" aria-label="Main">
-          <a href="#top" className="font-display text-lg font-bold tracking-tight whitespace-nowrap">
-            {SITE.shortName}
-            <span className="text-accent">.</span>
+          <a href="#top" className="whitespace-nowrap font-display text-lg font-bold tracking-tight">
+            <Brand />
           </a>
 
           <div className="hidden items-center gap-8 md:flex">

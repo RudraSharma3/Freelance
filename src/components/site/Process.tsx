@@ -15,12 +15,12 @@ export default function Process() {
       <div className="wrap grid gap-12 lg:grid-cols-12 lg:gap-8">
         <div className="lg:col-span-5">
           <Reveal className="lg:sticky lg:top-28">
-            <p className="eyebrow">05 · How we work</p>
+            <p className="eyebrow">04 · How we work</p>
             <h2 className="mt-5 font-display text-[clamp(2.2rem,4.6vw,3.6rem)] font-bold leading-[1.02] tracking-[-0.03em]">
-              Seven steps, and who owns each one.
+              Seven steps, start to finish.
             </h2>
             <p className="mt-6 max-w-[30rem] text-lg leading-relaxed text-text-secondary">
-              You always know what stage you&apos;re in and who to ask. Small jobs skip the steps they don&apos;t need: a resume
+              You always know what stage your project is in. Small jobs skip the steps they don&apos;t need: a resume
               doesn&apos;t need a test plan.
             </p>
           </Reveal>

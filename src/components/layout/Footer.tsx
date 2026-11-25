@@ -1,6 +1,6 @@
 import { SITE, LINKS } from "@/data/config";
 import VisitorCounter from "@/components/ui/VisitorCounter";
-import TrackedLink from "@/components/ui/TrackedLink";
+import Brand from "@/components/site/Brand";
 
 export default function Footer() {
   return (
@@ -9,8 +9,7 @@ export default function Footer() {
         <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <p className="font-display text-xl font-bold tracking-tight">
-              {SITE.name}
-              <span className="text-accent">.</span>
+              <Brand />
             </p>
             <p className="mt-1 text-sm text-text-secondary">
               {SITE.role} · {SITE.location}
@@ -18,15 +17,15 @@ export default function Footer() {
           </div>
 
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-[15px] text-text-secondary">
-            <TrackedLink href={LINKS.linkedin} external event="linkedin_clicked" className="hover:text-text-primary">
-              LinkedIn
-            </TrackedLink>
-            <TrackedLink href={LINKS.github} external event="github_clicked" className="hover:text-text-primary">
-              GitHub
-            </TrackedLink>
-            <TrackedLink href={LINKS.resume} external event="resume_downloaded" className="hover:text-text-primary">
-              Rudra&apos;s resume
-            </TrackedLink>
+            <a href="#services" className="hover:text-text-primary">
+              Services
+            </a>
+            <a href="#start" className="hover:text-text-primary">
+              Start a project
+            </a>
+            <a href={LINKS.whatsapp} target="_blank" rel="noreferrer" className="hover:text-text-primary">
+              WhatsApp
+            </a>
             <a href={`mailto:${LINKS.email}`} className="hover:text-text-primary">
               Email
             </a>

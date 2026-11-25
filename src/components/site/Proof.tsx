@@ -19,8 +19,7 @@ export default function Proof() {
         </Reveal>
         <Reveal delay={0.08}>
           <p className="max-w-xl text-xl leading-relaxed">
-            A small number, and a real one. Each was a specific problem for a specific person. Most of them were Rudra&apos;s
-            work before the team came together.
+            A small number, and a real one. Each was a specific problem for a specific person.
           </p>
           <div className="mt-6 flex flex-wrap gap-2">
             {KINDS.map((k) => (

@@ -40,7 +40,7 @@ export default function Finale() {
     >
       <div className="wrap">
         <motion.p className="eyebrow" {...show(0.1)}>
-          07 · Contact
+          06 · Contact
         </motion.p>
         <motion.h2
           className="mx-auto mt-8 max-w-[14ch] font-display text-[clamp(3.2rem,10vw,8rem)] font-bold leading-[0.92] tracking-[-0.04em]"
@@ -72,15 +72,6 @@ export default function Finale() {
           <button type="button" onClick={copy} className="rounded-full border border-border-strong px-3 py-1 text-sm font-medium hover:border-text-primary">
             {copied ? "Copied" : "Copy email"}
           </button>
-          <a
-            href={LINKS.linkedin}
-            target="_blank"
-            rel="noreferrer"
-            onClick={() => track("linkedin_clicked")}
-            className="font-medium text-text-secondary hover:text-accent-strong"
-          >
-            LinkedIn ↗
-          </a>
         </motion.div>
       </div>
     </section>

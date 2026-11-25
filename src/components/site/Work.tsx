@@ -19,6 +19,8 @@ export default function Work() {
   const close = useCallback(() => setActive(null), []);
   const tabsRef = useRef<HTMLDivElement>(null);
 
+  if (CASE_STUDIES.length === 0) return null;
+
   const list = CASE_STUDIES.filter((c) => filter === "All" || c.tag === filter);
   const count = (f: Filter) => CASE_STUDIES.filter((c) => f === "All" || c.tag === f).length;
 
@@ -42,15 +44,14 @@ export default function Work() {
       <div className="wrap">
         <div className="grid gap-6 lg:grid-cols-12 lg:items-end">
           <Reveal className="lg:col-span-7">
-            <p className="eyebrow">04 · Work</p>
+            <p className="eyebrow">Selected work</p>
             <h2 className="mt-5 font-display text-[clamp(2.2rem,4.6vw,3.6rem)] font-bold leading-[1.02] tracking-[-0.03em]">
               Things we can point to.
             </h2>
           </Reveal>
           <Reveal delay={0.06} className="lg:col-span-5">
             <p className="text-lg leading-relaxed text-text-secondary">
-              So far this is Rudra&apos;s work, from his job, an internship and his own projects. Every number comes from the
-              project itself. Team projects go at the top as they ship.
+              Client projects, shown with permission. Every number comes from the project itself.
             </p>
           </Reveal>
         </div>

@@ -1,4 +1,4 @@
-import type { RoleId } from "./team";
+import type { DisciplineId } from "./disciplines";
 
 export type ServiceId =
   | "website"
@@ -23,8 +23,8 @@ export interface Service {
   cta: string;
   /** Which option to pre-select in the project form. Must match a value in ProjectIntake's NEEDS. */
   intake: string;
-  /** Who works on it. */
-  roles: RoleId[];
+  /** What goes into it. */
+  roles: DisciplineId[];
 }
 
 export const SERVICES: Service[] = [
@@ -88,7 +88,7 @@ export const SERVICES: Service[] = [
     whoFor: "Engineering and CS students who need a project done properly.",
     cta: "Get help with my project",
     intake: "College project",
-    roles: ["lead", "dev"],
+    roles: ["dev", "data"],
   },
   {
     id: "resume",
@@ -103,7 +103,7 @@ export const SERVICES: Service[] = [
     whoFor: "Students and early-career professionals applying for tech and analytics roles.",
     cta: "Fix my resume",
     intake: "Resume",
-    roles: ["content", "lead"],
+    roles: ["content"],
   },
   {
     id: "linkedin",
@@ -132,7 +132,7 @@ export const SERVICES: Service[] = [
     whoFor: "Anyone with messy spreadsheets, exports or multi-sheet workbooks.",
     cta: "Clean my data",
     intake: "Data",
-    roles: ["lead", "qa"],
+    roles: ["data", "qa"],
   },
   {
     id: "ai-ml",
@@ -147,7 +147,7 @@ export const SERVICES: Service[] = [
     whoFor: "Students, researchers and teams with a real ML problem to solve.",
     cta: "Scope my ML project",
     intake: "AI / ML",
-    roles: ["lead", "dev"],
+    roles: ["data", "dev"],
   },
   {
     id: "ai-workflows",
@@ -162,7 +162,7 @@ export const SERVICES: Service[] = [
     whoFor: "Teams that want LLMs applied to their own documents or workflows.",
     cta: "Build my AI workflow",
     intake: "AI / ML",
-    roles: ["lead", "dev", "qa"],
+    roles: ["data", "dev", "qa"],
   },
   {
     id: "automation",
@@ -177,7 +177,7 @@ export const SERVICES: Service[] = [
     whoFor: "Small teams and individuals stuck with repetitive manual work.",
     cta: "Automate this",
     intake: "Automation",
-    roles: ["lead", "dev"],
+    roles: ["data", "dev"],
   },
   {
     id: "testing",
@@ -208,7 +208,7 @@ export const SERVICES: Service[] = [
     whoFor: "Anyone with a specific technical problem and no obvious off-the-shelf fix.",
     cta: "Tell us the problem",
     intake: "Something else",
-    roles: ["pm", "lead"],
+    roles: ["pm"],
   },
 ];
 

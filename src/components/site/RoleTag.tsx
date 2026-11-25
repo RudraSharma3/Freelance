@@ -1,8 +1,8 @@
-import { ROLE_COLOR, roleById, type RoleId } from "@/data/team";
+import { DISCIPLINE_COLOR, disciplineById, type DisciplineId } from "@/data/disciplines";
 import { cn } from "@/lib/utils";
 
-/** A small "who works on this" marker: coloured square + short role name. */
-export default function RoleTag({ id, className }: { id: RoleId; className?: string }) {
+/** A small "what goes into this" marker: coloured square + short discipline name. */
+export default function RoleTag({ id, className }: { id: DisciplineId; className?: string }) {
   return (
     <span
       className={cn(
@@ -10,8 +10,8 @@ export default function RoleTag({ id, className }: { id: RoleId; className?: str
         className
       )}
     >
-      <i className="h-2 w-2 rounded-[2px]" style={{ background: ROLE_COLOR[id] }} aria-hidden />
-      {roleById(id).short}
+      <i className="h-2 w-2 rounded-[2px]" style={{ background: DISCIPLINE_COLOR[id] }} aria-hidden />
+      {disciplineById(id).short}
     </span>
   );
 }

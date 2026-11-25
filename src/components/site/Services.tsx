@@ -2,7 +2,7 @@
 
 import { useCallback, useState } from "react";
 import { SERVICE_GROUPS, serviceById, type ServiceId } from "@/data/services";
-import type { RoleId } from "@/data/team";
+import type { DisciplineId } from "@/data/disciplines";
 import Reveal from "@/components/site/Reveal";
 import Sheet from "@/components/site/Sheet";
 import RoleTag from "@/components/site/RoleTag";
@@ -40,7 +40,7 @@ export default function Services() {
         <ol className="mt-16 grid gap-20 lg:mt-20 lg:gap-28">
           {SERVICE_GROUPS.map((g, i) => {
             const flip = i % 2 === 1;
-            const roles = [...new Set(g.services.flatMap((s) => serviceById(s).roles))] as RoleId[];
+            const roles = [...new Set(g.services.flatMap((s) => serviceById(s).roles))] as DisciplineId[];
             return (
               <Reveal as="li" key={g.id} className="grid items-center gap-10 lg:grid-cols-12 lg:gap-8">
                 {/* Decorative: the same services are reachable from the list beside it. */}
@@ -93,7 +93,7 @@ export default function Services() {
                     })}
                   </ul>
                   <div className="mt-6 flex flex-wrap items-center gap-1.5">
-                    <span className="mr-1 text-sm text-text-tertiary">Who works on it</span>
+                    <span className="mr-1 text-sm text-text-tertiary">What goes into it</span>
                     {roles.map((r) => (
                       <RoleTag key={r} id={r} />
                     ))}

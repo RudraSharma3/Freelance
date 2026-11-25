@@ -1,10 +1,10 @@
-import type { RoleId } from "./team";
+import type { DisciplineId } from "./disciplines";
 
 export interface ProcessStep {
   index: string;
   title: string;
   description: string;
-  roles: RoleId[];
+  roles: DisciplineId[];
 }
 
 export const PROCESS_STEPS: ProcessStep[] = [
@@ -18,7 +18,7 @@ export const PROCESS_STEPS: ProcessStep[] = [
     index: "02",
     title: "We work out what it needs",
     description: "Sometimes the real fix isn't the one you asked for. If so, we'll say so before you spend anything.",
-    roles: ["pm", "lead"],
+    roles: ["pm"],
   },
   {
     index: "03",
@@ -36,12 +36,12 @@ export const PROCESS_STEPS: ProcessStep[] = [
     index: "05",
     title: "Build",
     description: "We build in small pieces and show you progress as we go. No black box.",
-    roles: ["dev", "lead"],
+    roles: ["dev", "data"],
   },
   {
     index: "06",
     title: "Test",
-    description: "The tester goes through it on real phones and browsers. Bugs get fixed and re-tested before launch.",
+    description: "It gets tested on real phones and browsers. Bugs get fixed and re-tested before launch.",
     roles: ["qa"],
   },
   {

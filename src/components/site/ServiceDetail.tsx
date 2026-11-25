@@ -32,7 +32,7 @@ export default function ServiceDetail({
           <p className="text-[15px] text-text-secondary">{service.whoFor}</p>
         </div>
         <div>
-          <p className="eyebrow mb-2.5">Who works on it</p>
+          <p className="eyebrow mb-2.5">What goes into it</p>
           <div className="flex flex-wrap gap-1.5">
             {service.roles.map((r) => (
               <RoleTag key={r} id={r} />

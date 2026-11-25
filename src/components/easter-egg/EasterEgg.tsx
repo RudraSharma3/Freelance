@@ -65,12 +65,8 @@ export default function EasterEgg() {
               <p className="text-text-secondary">{SITE.location} · {SITE.peopleHelped}+ people helped</p>
               <p className="pt-2 text-text-tertiary">$ cat contact.txt</p>
               <p>
-                <a href={LINKS.linkedin} target="_blank" rel="noreferrer" className="text-accent-strong hover:underline">
-                  linkedin
-                </a>{" "}
-                ·{" "}
-                <a href={LINKS.github} target="_blank" rel="noreferrer" className="text-accent-strong hover:underline">
-                  github
+                <a href={LINKS.whatsapp} target="_blank" rel="noreferrer" className="text-accent-strong hover:underline">
+                  whatsapp
                 </a>{" "}
                 ·{" "}
                 <a href={`mailto:${LINKS.email}`} className="text-accent-strong hover:underline">

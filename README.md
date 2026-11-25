@@ -1,6 +1,6 @@
-# Rudra Sharma & Team — Freelance Site
+# Brief & Build — Freelance Site
 
-The freelance site for Rudra Sharma and his team (design, development, testing, AI and data),
+The website for Brief & Build, a small freelance team (design, development, testing, AI and data),
 built with Next.js (App Router), TypeScript and Tailwind CSS. Includes a real, self-hosted analytics
 pipeline — event tracking, first-touch UTM/LinkedIn attribution, a public visit counter, and a
 password-protected `/admin/analytics` dashboard — backed by Supabase in production.
@@ -11,15 +11,17 @@ Light only: off-white page, white rounded cards, one vermilion accent (`--accent
 `src/app/globals.css`), Bricolage Grotesque for headings and Inter for text. The colour tokens
 are shared with the admin dashboard, so change values, not names.
 
-The page scrolls like one story, with the same flow as Rudra's portfolio:
+The page scrolls like one story:
 
 1. **Opening** — plays once on load: label, headline, a line drawing in, then the rest.
 2. **Start here** — the intro stays put on the left while a "brief" scrolls on the right; each
    problem row lands with the roles who pick it up.
 3. **Services** — four chapters alternating left and right, each with a drawn figure.
 4. **Proof** — the "people helped" number counts up.
-5. **The team** — one card per role; each opens a sheet.
-6. **Work** — tabs by type cross-fade the list; each project opens a breakdown.
+5. **Under one roof** — one card per discipline (design, development, testing, AI & data,
+   content, project management); each opens a sheet. No individual profiles, on purpose.
+6. **Work** — hidden until `CASE_STUDIES` has client projects; then tabs by type cross-fade
+   the list and each project opens a breakdown.
 7. **How we work** — seven steps, each stamped with who owns it.
 8. **Start a project** — the four-step form. Any service's button pre-selects it here.
 9. **Contact** — a full-height closing screen.
@@ -30,17 +32,13 @@ turns the motion off.
 
 ## What's real vs. placeholder
 
-Every stat, project and result is pulled from Rudra's resume or the project's public repo —
-see `src/data/*.ts`. Nothing is invented. The Work section says plainly that, so far, it's
-Rudra's work from before the team came together. Still to fill in:
+The site presents the company, not individuals: there are no names, photos or personal
+profiles anywhere. Every number comes from real work (see `src/data/*.ts`). Still to do:
 
-- **Studio name** — `SITE.name` / `SITE.shortName` in `src/data/config.ts` (currently
-  "Rudra Sharma & Team").
-- **Team names and photos** — `name: null` in `src/data/team.ts` renders a card by role only.
-  Add the name, and a photo in `public/images/team/` via `photo`.
-- **Added roles** — the project manager and content writer were added on top of the original
-  designer, developer and tester. Remove them from `team.ts` (and from `roles` in
-  `services.ts`, `problems.ts`, `process.ts`) if the team doesn't fill them.
+- **Client projects** — add them to `src/data/caseStudies.ts` (with permission) and the Work
+  section appears on its own.
+- **Company email and number** — `LINKS` in `src/data/config.ts` still points to a personal
+  Gmail and WhatsApp number.
 - Named client testimonials (none yet; see section 13).
 - The production domain (`NEXT_PUBLIC_SITE_URL`).
 
@@ -374,13 +372,13 @@ Almost everything is data, not JSX:
 
 | What | File |
 |---|---|
-| Studio name, tagline, "13+ people helped", site URL | `src/data/config.ts` |
-| LinkedIn / GitHub / email / WhatsApp / resume links | `src/data/config.ts` |
-| Team members, roles, role colours | `src/data/team.ts` |
+| Company name, tagline, "13+ people helped", site URL | `src/data/config.ts` |
+| Contact email and WhatsApp | `src/data/config.ts` |
+| Disciplines ("Under one roof") and their tag colours | `src/data/disciplines.ts` |
 | Services, the four service chapters | `src/data/services.ts` |
 | "Start here" brief rows | `src/data/problems.ts` |
-| Work / case studies | `src/data/caseStudies.ts` |
-| Process steps and who owns each | `src/data/process.ts` |
+| Client projects (Work section) | `src/data/caseStudies.ts` |
+| Process steps and what each involves | `src/data/process.ts` |
 | Form options ("What do you need?") | `NEEDS` in `src/components/forms/ProjectIntake.tsx` — keep in sync with `intake` in `services.ts` |
 
 Changing `SITE.peopleHelped` in `config.ts`, for example, updates the proof section
@@ -396,7 +394,7 @@ Open `src/data/caseStudies.ts` and add an entry to the `CASE_STUDIES` array:
 {
   slug: "unique-slug",
   title: "Project Title",
-  tag: "AI" | "Data" | "Automation" | "Web & career",
+  tag: "Web" | "Design" | "AI" | "Data" | "Automation" | "Careers",
   line: "One sentence that says what it is.",
   context: "Where/how this was built, and by whom.",
   problem: "What problem this solved.",
@@ -407,7 +405,7 @@ Open `src/data/caseStudies.ts` and add an entry to the `CASE_STUDIES` array:
 }
 ```
 
-Put team projects at the top of the array. Keep every fact real — this section explicitly does not use invented clients or results.
+Newest first. Only add a client project with the client's permission. Keep every fact real — this section explicitly does not use invented clients or results.
 
 ---
 

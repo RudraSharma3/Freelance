@@ -40,7 +40,6 @@ export const metadata: Metadata = {
     "ATS resume",
     "LinkedIn optimization",
     "portfolio website",
-    "Rudra Sharma",
   ],
   authors: [{ name: SITE.name }],
   creator: SITE.name,
@@ -70,13 +69,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
+    slogan: SITE.tagline,
     name: SITE.name,
     description: SITE.description,
     url: SITE.url,
     email: LINKS.email,
     areaServed: "Worldwide",
     address: { "@type": "PostalAddress", addressLocality: "Jaipur", addressCountry: "IN" },
-    founder: { "@type": "Person", name: "Rudra Sharma", sameAs: [LINKS.linkedin, LINKS.github, LINKS.portfolio] },
   };
 
   return (
