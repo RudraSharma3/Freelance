@@ -56,11 +56,11 @@ export default function LoginForm() {
           placeholder="Password"
           className="mt-6 w-full rounded-xl border border-border bg-bg px-4 py-3 text-sm placeholder:text-text-tertiary focus:border-accent"
         />
-        {error && <p className="mt-3 text-sm text-red-400">{error}</p>}
+        {error && <p className="mt-3 text-sm text-red-700">{error}</p>}
         <button
           type="submit"
           disabled={loading || !password}
-          className="mt-5 w-full rounded-full bg-accent py-2.5 text-sm font-medium text-[#161006] disabled:opacity-30"
+          className="mt-5 w-full rounded-full bg-accent py-2.5 text-sm font-medium text-white disabled:opacity-30"
         >
           {loading ? "Checking…" : "Sign in"}
         </button>

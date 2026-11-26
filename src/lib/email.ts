@@ -1,6 +1,7 @@
 import { Resend } from "resend";
 import nodemailer from "nodemailer";
 import type { LeadSubmission } from "@/types/analytics";
+import { SITE } from "@/data/config";
 
 /**
  * Direct Email delivery for project inquiries.
@@ -26,7 +27,7 @@ function getOwnerEmail(): string {
 function getFromEmail(): string {
   const user = process.env.EMAIL_USER || process.env.SMTP_USER || process.env.GMAIL_USER;
   if (user) {
-    return `"Rudra Sharma" <${user}>`;
+    return `"${SITE.name}" <${user}>`;
   }
   return (
     process.env.RESEND_FROM_EMAIL ||
@@ -173,9 +174,9 @@ export async function sendClientConfirmationEmail(lead: LeadSubmission): Promise
   const htmlContent = `
     <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 480px; padding: 20px; line-height: 1.5;">
       <p style="font-size: 15px;">Hi ${escapeHtml(lead.name.split(" ")[0] || lead.name)},</p>
-      <p style="font-size: 15px;">Thanks for reaching out! I've received your project inquiry about <strong>${escapeHtml(lead.need)}</strong>.</p>
-      <p style="font-size: 15px;">I will review your requirements and follow up with you shortly${lead.timeline ? ` (timeline: ${escapeHtml(lead.timeline)})` : ""}.</p>
-      <p style="margin-top: 24px; font-size: 15px; color: #555;">Best regards,<br><strong>Rudra Sharma</strong></p>
+      <p style="font-size: 15px;">Thanks for reaching out! We've received your project inquiry about <strong>${escapeHtml(lead.need)}</strong>.</p>
+      <p style="font-size: 15px;">We'll review your requirements and follow up with you shortly${lead.timeline ? ` (timeline: ${escapeHtml(lead.timeline)})` : ""}.</p>
+      <p style="margin-top: 24px; font-size: 15px; color: #555;">Best regards,<br><strong>The ${escapeHtml(SITE.name)} team</strong></p>
     </div>
   `;
 
@@ -185,7 +186,7 @@ export async function sendClientConfirmationEmail(lead: LeadSubmission): Promise
       await transport.sendMail({
         from: fromEmail,
         to: lead.email,
-        subject: "Got it — I'll review your project inquiry",
+        subject: "Got it — we'll review your project inquiry",
         html: htmlContent,
       });
       return true;
@@ -201,7 +202,7 @@ export async function sendClientConfirmationEmail(lead: LeadSubmission): Promise
       await resend.emails.send({
         from: fromEmail,
         to: lead.email,
-        subject: "Got it — I'll review your project inquiry",
+        subject: "Got it — we'll review your project inquiry",
         html: htmlContent,
       });
       return true;

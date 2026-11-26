@@ -1,18 +1,46 @@
-# Rudra Sharma — Freelance Site
+# Brief & Build — Freelance Site
 
-A personal freelance/consultancy site for Rudra Sharma (AI, data & automation), built with
-Next.js (App Router), TypeScript and Tailwind CSS. Includes a real, self-hosted analytics
+The website for Brief & Build, a small freelance team (design, development, testing, AI and data),
+built with Next.js (App Router), TypeScript and Tailwind CSS. Includes a real, self-hosted analytics
 pipeline — event tracking, first-touch UTM/LinkedIn attribution, a public visit counter, and a
 password-protected `/admin/analytics` dashboard — backed by Supabase in production.
 
+## Design and page flow
+
+Light only: off-white page, white rounded cards, one vermilion accent (`--accent` in
+`src/app/globals.css`), Bricolage Grotesque for headings and Inter for text. The colour tokens
+are shared with the admin dashboard, so change values, not names.
+
+The page scrolls like one story:
+
+1. **Opening** — plays once on load: label, headline, a line drawing in, then the rest.
+2. **Start here** — the intro stays put on the left while a "brief" scrolls on the right; each
+   problem row lands with the roles who pick it up.
+3. **Services** — four chapters alternating left and right, each with a drawn figure.
+4. **Proof** — the "people helped" number counts up.
+5. **Under one roof** — one card per discipline (design, development, testing, AI & data,
+   content, project management); each opens a sheet. No individual profiles, on purpose.
+6. **Work** — hidden until `CASE_STUDIES` has client projects; then tabs by type cross-fade
+   the list and each project opens a breakdown.
+7. **How we work** — seven steps, each stamped with who owns it.
+8. **Start a project** — the four-step form. Any service's button pre-selects it here.
+9. **Contact** — a full-height closing screen.
+
+Sections fade and rise as they scroll in (`src/components/site/Reveal.tsx`); details open in a
+sheet that slides up (`Sheet.tsx`, Esc or the backdrop closes it). `prefers-reduced-motion`
+turns the motion off.
+
 ## What's real vs. placeholder
 
-Every stat, skill, project and result on this site is pulled directly from Rudra's resume —
-see `src/data/*.ts`. Nothing is invented. Two things are intentionally left as placeholders:
+The site presents the company, not individuals: there are no names, photos or personal
+profiles anywhere. Every number comes from real work (see `src/data/*.ts`). Still to do:
 
-- Named client testimonials / before-after examples (Proof section) —
-  `[PLACEHOLDER — ADD REAL INFORMATION]`
-- The production domain (`NEXT_PUBLIC_SITE_URL`)
+- **Client projects** — add them to `src/data/caseStudies.ts` (with permission) and the Work
+  section appears on its own.
+- **Company email and number** — `LINKS` in `src/data/config.ts` still points to a personal
+  Gmail and WhatsApp number.
+- Named client testimonials (none yet; see section 13).
+- The production domain (`NEXT_PUBLIC_SITE_URL`).
 
 ---
 
@@ -344,16 +372,17 @@ Almost everything is data, not JSX:
 
 | What | File |
 |---|---|
-| Name, tagline, "13+ people helped", site URL | `src/data/config.ts` |
-| LinkedIn / GitHub / email / WhatsApp / resume links | `src/data/config.ts` |
-| Services offered | `src/data/services.ts` |
-| Case studies | `src/data/caseStudies.ts` |
-| Technical skills graph | `src/data/skills.ts` |
-| Process steps | `src/data/process.ts` |
-| Problem-selector cards | `src/data/problems.ts` |
+| Company name, tagline, "13+ people helped", site URL | `src/data/config.ts` |
+| Contact email and WhatsApp | `src/data/config.ts` |
+| Disciplines ("Under one roof") and their tag colours | `src/data/disciplines.ts` |
+| Services, the four service chapters | `src/data/services.ts` |
+| "Start here" brief rows | `src/data/problems.ts` |
+| Client projects (Work section) | `src/data/caseStudies.ts` |
+| Process steps and what each involves | `src/data/process.ts` |
+| Form options ("What do you need?") | `NEEDS` in `src/components/forms/ProjectIntake.tsx` — keep in sync with `intake` in `services.ts` |
 
-Changing `SITE.peopleHelped` in `config.ts`, for example, updates the hero, the proof section,
-and the `whoami` easter egg all at once.
+Changing `SITE.peopleHelped` in `config.ts`, for example, updates the proof section
+and the `whoami` easter egg at once.
 
 ---
 
@@ -365,28 +394,28 @@ Open `src/data/caseStudies.ts` and add an entry to the `CASE_STUDIES` array:
 {
   slug: "unique-slug",
   title: "Project Title",
-  tag: "AI" | "Data" | "Automation" | "Research",
-  context: "One line — where/how this was built.",
+  tag: "Web" | "Design" | "AI" | "Data" | "Automation" | "Careers",
+  line: "One sentence that says what it is.",
+  context: "Where/how this was built, and by whom.",
   problem: "What problem this solved.",
-  whatIDid: ["Bullet one", "Bullet two", "Bullet three"],
+  whatWeDid: ["Bullet one", "Bullet two", "Bullet three"],
   tech: ["Tech", "Stack", "Used"],
   result: "The real, specific outcome — a number if you have one.",
+  links: [{ label: "Code", url: "https://..." }, { label: "Live demo", url: "https://..." }],
 }
 ```
 
-Keep every fact real — this section explicitly does not use invented clients or results.
+Newest first. Only add a client project with the client's permission. Keep every fact real — this section explicitly does not use invented clients or results.
 
 ---
 
 ## 13. How to add testimonials
 
-There's currently a placeholder line in the Proof section
-(`src/components/sections/Proof.tsx`) marked `[PLACEHOLDER — ADD REAL INFORMATION]`. Once you
-have real, permission-cleared testimonials:
+There are no testimonials on the site yet. Once you have real, permission-cleared ones:
 
 1. Add a `TESTIMONIALS` array to a new `src/data/testimonials.ts` (name/role, quote, and
    optionally which service it relates to — keep quotes short and verifiable).
-2. Replace the placeholder paragraph in `Proof.tsx` with a small rendered list.
+2. Render them as a small list under the number in `src/components/site/Proof.tsx`.
 
 Don't add anything here without explicit permission from the person being quoted.
 

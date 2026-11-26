@@ -36,7 +36,7 @@ export default function EasterEgg() {
     <AnimatePresence>
       {open && (
         <motion.div
-          className="fixed inset-0 z-[100] flex items-end justify-center bg-black/60 p-4 sm:items-center"
+          className="fixed inset-0 z-[100] flex items-end justify-center bg-[#16161a]/30 p-4 backdrop-blur-[3px] sm:items-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -45,7 +45,7 @@ export default function EasterEgg() {
           <motion.div
             role="dialog"
             aria-label="whoami"
-            className="w-full max-w-md rounded-lg border border-border bg-bg-elevated font-mono text-sm shadow-2xl"
+            className="w-full max-w-md rounded-2xl border border-border bg-bg-elevated font-mono text-sm shadow-2xl"
             initial={{ y: 16, opacity: 0, scale: 0.98 }}
             animate={{ y: 0, opacity: 1, scale: 1 }}
             exit={{ y: 8, opacity: 0, scale: 0.98 }}
@@ -60,20 +60,16 @@ export default function EasterEgg() {
             </div>
             <div className="space-y-2 px-4 py-4 leading-relaxed">
               <p className="text-text-tertiary">$ whoami</p>
-              <p className="text-accent-strong">{SITE.name.toLowerCase().replace(" ", "_")}</p>
+              <p className="text-accent-strong">{SITE.handle}</p>
               <p className="text-text-secondary">{SITE.role}</p>
-              <p className="text-text-secondary">{SITE.location} · {SITE.peopleHelped}+ people helped</p>
+              <p className="text-text-secondary">{SITE.peopleHelped}+ people helped</p>
               <p className="pt-2 text-text-tertiary">$ cat contact.txt</p>
               <p>
-                <a href={LINKS.linkedin} target="_blank" rel="noreferrer" className="text-signal hover:underline">
-                  linkedin
+                <a href={LINKS.whatsapp} target="_blank" rel="noreferrer" className="text-accent-strong hover:underline">
+                  whatsapp
                 </a>{" "}
                 ·{" "}
-                <a href={LINKS.github} target="_blank" rel="noreferrer" className="text-signal hover:underline">
-                  github
-                </a>{" "}
-                ·{" "}
-                <a href={`mailto:${LINKS.email}`} className="text-signal hover:underline">
+                <a href={`mailto:${LINKS.email}`} className="text-accent-strong hover:underline">
                   email
                 </a>
               </p>

@@ -3,19 +3,23 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, ArrowRight, ArrowLeft } from "lucide-react";
-import SectionHeading from "@/components/ui/SectionHeading";
+import Reveal from "@/components/site/Reveal";
+import { PREFILL_EVENT } from "@/lib/intake";
 import { track } from "@/lib/analytics";
 import { captureUtm, getSessionId } from "@/lib/utm";
 
+// Keep in sync with `intake` in src/data/services.ts (used to pre-select an option).
 const NEEDS = [
+  "Website / web app",
+  "UI/UX design",
+  "Portfolio",
+  "College project",
+  "Data",
+  "AI / ML",
+  "Automation",
+  "Testing / QA",
   "Resume",
   "LinkedIn",
-  "Portfolio",
-  "Website",
-  "College Project",
-  "Data",
-  "AI/ML",
-  "Automation",
   "Something else",
 ];
 
@@ -43,6 +47,18 @@ export default function ProjectIntake() {
       track("form_started");
     }
   }, [need, details]);
+
+  useEffect(() => {
+    function onPrefill(e: Event) {
+      const n = (e as CustomEvent<{ need?: string }>).detail?.need;
+      if (!n || !NEEDS.includes(n)) return;
+      setNeed(n);
+      setError(null);
+      setStep((s) => (s === 5 ? s : 2));
+    }
+    window.addEventListener(PREFILL_EVENT, onPrefill);
+    return () => window.removeEventListener(PREFILL_EVENT, onPrefill);
+  }, []);
 
   function goNext(current: Step, next: Step) {
     if (!completedSteps.current.has(current)) {
@@ -100,17 +116,26 @@ export default function ProjectIntake() {
   }
 
   return (
-    <section id="start" className="border-t border-border-soft bg-bg-elevated/30">
-      <div className="mx-auto max-w-2xl px-5 py-24 sm:px-8">
-        <SectionHeading eyebrow="Start a project" title="Tell me what you need." align="center" />
+    <section id="start" className="section">
+      <div className="wrap grid gap-12 lg:grid-cols-12 lg:gap-8">
+        <Reveal className="lg:col-span-5">
+          <p className="eyebrow">05 · Start a project</p>
+          <h2 className="mt-5 font-display text-[clamp(2.2rem,4.6vw,3.6rem)] font-bold leading-[1.02] tracking-[-0.03em]">
+            Tell us what you need.
+          </h2>
+          <p className="mt-6 max-w-[28rem] text-lg leading-relaxed text-text-secondary">
+            Four short steps. We read every one and reply with next steps, or an honest &ldquo;this isn&apos;t for us&rdquo;.
+          </p>
+        </Reveal>
 
-        <div className="mt-10 rounded-2xl border border-border bg-bg p-6 sm:p-8">
+        <Reveal delay={0.08} className="lg:col-span-7">
+        <div className="rounded-[28px] border border-border bg-bg-elevated p-6 sm:p-9">
           {step < 5 && (
             <div className="mb-8 flex items-center gap-1.5">
               {[1, 2, 3, 4].map((s) => (
                 <span
                   key={s}
-                  className={`h-1 flex-1 rounded-full transition-colors duration-300 ${
+                  className={`h-1.5 flex-1 rounded-full transition-colors duration-300 ${
                     s <= step ? "bg-accent" : "bg-border"
                   }`}
                 />
@@ -121,16 +146,18 @@ export default function ProjectIntake() {
           <AnimatePresence mode="wait">
             {step === 1 && (
               <motion.div key="1" initial={{ opacity: 0, x: 12 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -12 }} transition={{ duration: 0.2 }}>
-                <p className="eyebrow mb-4">01 · What do you need?</p>
-                <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3">
+                <p className="eyebrow mb-5">Step 1 of 4 · What do you need?</p>
+                <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3" role="group" aria-label="What do you need?">
                   {NEEDS.map((n) => (
                     <button
                       key={n}
                       onClick={() => setNeed(n)}
-                      className={`rounded-xl border px-3 py-3 text-sm transition-colors duration-150 ${
+                      type="button"
+                      aria-pressed={need === n}
+                      className={`rounded-2xl border px-3 py-3.5 text-left text-[15px] font-medium transition-colors duration-150 ${
                         need === n
                           ? "border-accent bg-accent-soft text-accent-strong"
-                          : "border-border text-text-secondary hover:border-accent/40"
+                          : "border-border text-text-primary hover:border-border-strong"
                       }`}
                     >
                       {n}
@@ -139,9 +166,10 @@ export default function ProjectIntake() {
                 </div>
                 <div className="mt-8 flex justify-end">
                   <button
+                    type="button"
                     disabled={!need}
                     onClick={() => goNext(1, 2)}
-                    className="inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-[#161006] transition-opacity disabled:opacity-30"
+                    className="inline-flex h-11 items-center gap-2 rounded-full bg-accent px-6 text-[15px] font-semibold text-white transition-[background-color,opacity] hover:bg-accent-strong disabled:opacity-30"
                   >
                     Next <ArrowRight size={15} />
                   </button>
@@ -151,23 +179,25 @@ export default function ProjectIntake() {
 
             {step === 2 && (
               <motion.div key="2" initial={{ opacity: 0, x: 12 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -12 }} transition={{ duration: 0.2 }}>
-                <p className="eyebrow mb-4">02 · Tell me about it</p>
+                <p className="eyebrow mb-5">Step 2 of 4 · Tell us about it</p>
                 <textarea
                   value={details}
                   onChange={(e) => setDetails(e.target.value)}
                   rows={5}
                   maxLength={2000}
                   placeholder="What's the situation? What have you tried? What does 'done' look like?"
-                  className="w-full resize-none rounded-xl border border-border bg-bg-elevated px-4 py-3 text-sm text-text-primary placeholder:text-text-tertiary focus:border-accent"
+                  aria-label="Project details"
+                  className="w-full resize-none rounded-2xl border border-border-strong bg-bg px-4 py-3.5 text-[15px] text-text-primary placeholder:text-text-tertiary focus:border-text-primary focus:outline-none"
                 />
                 <div className="mt-8 flex justify-between">
-                  <button onClick={() => setStep(1)} className="inline-flex items-center gap-2 text-sm text-text-tertiary hover:text-text-secondary">
+                  <button type="button" onClick={() => setStep(1)} className="inline-flex items-center gap-2 text-[15px] font-medium text-text-secondary hover:text-text-primary">
                     <ArrowLeft size={15} /> Back
                   </button>
                   <button
+                    type="button"
                     disabled={!details.trim()}
                     onClick={() => goNext(2, 3)}
-                    className="inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-[#161006] transition-opacity disabled:opacity-30"
+                    className="inline-flex h-11 items-center gap-2 rounded-full bg-accent px-6 text-[15px] font-semibold text-white transition-[background-color,opacity] hover:bg-accent-strong disabled:opacity-30"
                   >
                     Next <ArrowRight size={15} />
                   </button>
@@ -177,16 +207,18 @@ export default function ProjectIntake() {
 
             {step === 3 && (
               <motion.div key="3" initial={{ opacity: 0, x: 12 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -12 }} transition={{ duration: 0.2 }}>
-                <p className="eyebrow mb-4">03 · Timeline</p>
+                <p className="eyebrow mb-5">Step 3 of 4 · Timeline</p>
                 <div className="grid grid-cols-2 gap-2.5">
                   {TIMELINES.map((t) => (
                     <button
                       key={t}
                       onClick={() => setTimeline(t)}
-                      className={`rounded-xl border px-3 py-3 text-sm transition-colors duration-150 ${
+                      type="button"
+                      aria-pressed={timeline === t}
+                      className={`rounded-2xl border px-3 py-3.5 text-left text-[15px] font-medium transition-colors duration-150 ${
                         timeline === t
                           ? "border-accent bg-accent-soft text-accent-strong"
-                          : "border-border text-text-secondary hover:border-accent/40"
+                          : "border-border text-text-primary hover:border-border-strong"
                       }`}
                     >
                       {t}
@@ -194,13 +226,14 @@ export default function ProjectIntake() {
                   ))}
                 </div>
                 <div className="mt-8 flex justify-between">
-                  <button onClick={() => setStep(2)} className="inline-flex items-center gap-2 text-sm text-text-tertiary hover:text-text-secondary">
+                  <button type="button" onClick={() => setStep(2)} className="inline-flex items-center gap-2 text-[15px] font-medium text-text-secondary hover:text-text-primary">
                     <ArrowLeft size={15} /> Back
                   </button>
                   <button
+                    type="button"
                     disabled={!timeline}
                     onClick={() => goNext(3, 4)}
-                    className="inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-[#161006] transition-opacity disabled:opacity-30"
+                    className="inline-flex h-11 items-center gap-2 rounded-full bg-accent px-6 text-[15px] font-semibold text-white transition-[background-color,opacity] hover:bg-accent-strong disabled:opacity-30"
                   >
                     Next <ArrowRight size={15} />
                   </button>
@@ -210,29 +243,34 @@ export default function ProjectIntake() {
 
             {step === 4 && (
               <motion.div key="4" initial={{ opacity: 0, x: 12 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -12 }} transition={{ duration: 0.2 }}>
-                <p className="eyebrow mb-4">04 · How do I reach you?</p>
+                <p className="eyebrow mb-5">Step 4 of 4 · How do we reach you?</p>
                 <div className="space-y-3">
                   <input
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Name"
+                    aria-label="Name"
+                    autoComplete="name"
                     maxLength={100}
-                    className="w-full rounded-xl border border-border bg-bg-elevated px-4 py-3 text-sm placeholder:text-text-tertiary focus:border-accent"
+                    className="w-full rounded-2xl border border-border-strong bg-bg px-4 py-3.5 text-[15px] placeholder:text-text-tertiary focus:border-text-primary focus:outline-none"
                   />
                   <input
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     type="email"
                     placeholder="Email"
+                    aria-label="Email"
+                    autoComplete="email"
                     maxLength={200}
-                    className="w-full rounded-xl border border-border bg-bg-elevated px-4 py-3 text-sm placeholder:text-text-tertiary focus:border-accent"
+                    className="w-full rounded-2xl border border-border-strong bg-bg px-4 py-3.5 text-[15px] placeholder:text-text-tertiary focus:border-text-primary focus:outline-none"
                   />
                   <input
                     value={contact}
                     onChange={(e) => setContact(e.target.value)}
-                    placeholder="LinkedIn / WhatsApp (optional)"
+                    placeholder="LinkedIn or WhatsApp (optional)"
+                    aria-label="LinkedIn or WhatsApp (optional)"
                     maxLength={200}
-                    className="w-full rounded-xl border border-border bg-bg-elevated px-4 py-3 text-sm placeholder:text-text-tertiary focus:border-accent"
+                    className="w-full rounded-2xl border border-border-strong bg-bg px-4 py-3.5 text-[15px] placeholder:text-text-tertiary focus:border-text-primary focus:outline-none"
                   />
                   {/* honeypot — hidden from real users */}
                   <input
@@ -245,15 +283,16 @@ export default function ProjectIntake() {
                     aria-hidden="true"
                   />
                 </div>
-                {error && <p className="mt-3 text-sm text-red-400">{error}</p>}
+                {error && <p role="alert" className="mt-3 text-sm font-medium text-red-700">{error}</p>}
                 <div className="mt-8 flex justify-between">
-                  <button onClick={() => setStep(3)} className="inline-flex items-center gap-2 text-sm text-text-tertiary hover:text-text-secondary">
+                  <button type="button" onClick={() => setStep(3)} className="inline-flex items-center gap-2 text-[15px] font-medium text-text-secondary hover:text-text-primary">
                     <ArrowLeft size={15} /> Back
                   </button>
                   <button
+                    type="button"
                     disabled={submitting || !name.trim() || !email.trim()}
                     onClick={handleSubmit}
-                    className="inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-[#161006] transition-opacity disabled:opacity-30"
+                    className="inline-flex h-11 items-center gap-2 rounded-full bg-accent px-6 text-[15px] font-semibold text-white transition-[background-color,opacity] hover:bg-accent-strong disabled:opacity-30"
                   >
                     {submitting ? "Sending…" : "Send"} <ArrowRight size={15} />
                   </button>
@@ -268,19 +307,20 @@ export default function ProjectIntake() {
                 animate={{ opacity: 1, scale: 1 }}
                 className="flex flex-col items-center py-8 text-center"
               >
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-accent-soft text-accent-strong">
+                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-signal-soft text-signal">
                   <Check size={22} />
                 </div>
-                <p className="mt-5 font-display text-xl font-medium">
-                  Got it. I&apos;ll take a look and get back to you.
+                <p className="mt-5 font-display text-2xl font-bold tracking-[-0.01em]">
+                  Got it. We&apos;ll take a look and get back to you.
                 </p>
-                <p className="mt-2 text-sm text-text-tertiary">
+                <p className="mt-2 text-[15px] text-text-secondary">
                   Usually within a day or two, depending on the timeline you gave.
                 </p>
               </motion.div>
             )}
           </AnimatePresence>
         </div>
+        </Reveal>
       </div>
     </section>
   );
