@@ -1,35 +1,34 @@
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
-import Hero from "@/components/site/Hero";
-import ProblemPicker from "@/components/site/ProblemPicker";
-import ServicesRail from "@/components/site/ServicesRail";
-import Statement from "@/components/site/Statement";
-import Bento from "@/components/site/Bento";
+import Opening from "@/components/site/Opening";
+import Brief from "@/components/site/Brief";
+import Services from "@/components/site/Services";
+import Proof from "@/components/site/Proof";
+import Studio from "@/components/site/Studio";
 import Work from "@/components/site/Work";
-import StackSteps from "@/components/site/StackSteps";
+import Process from "@/components/site/Process";
 import ProjectIntake from "@/components/forms/ProjectIntake";
-import ContactPanel from "@/components/site/ContactPanel";
+import Finale from "@/components/site/Finale";
 
 /**
- * hero + moving services band → pick your problem → services rail (slides
- * sideways while you scroll) → one sentence that fills in → bento of what's
- * under one roof → work (once there are client projects) → stacking process
- * cards → project form → contact panel → wordmark footer.
+ * The page reads top to bottom like a short story:
+ * opening → what are you trying to solve → services → proof → under one roof →
+ * work (only once there are client projects) → how we work → start a project → contact.
  */
 export default function Home() {
   return (
     <>
       <Nav />
       <main>
-        <Hero />
-        <ProblemPicker />
-        <ServicesRail />
-        <Statement />
-        <Bento />
+        <Opening />
+        <Brief />
+        <Services />
+        <Proof />
+        <Studio />
         <Work />
-        <StackSteps />
+        <Process />
         <ProjectIntake />
-        <ContactPanel />
+        <Finale />
       </main>
       <Footer />
     </>

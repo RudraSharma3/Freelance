@@ -62,7 +62,7 @@ export default function EasterEgg() {
               <p className="text-text-tertiary">$ whoami</p>
               <p className="text-accent-strong">{SITE.handle}</p>
               <p className="text-text-secondary">{SITE.role}</p>
-              <p className="text-text-secondary">{SITE.peopleHelped}+ people helped</p>
+              <p className="text-text-secondary">{SITE.location} · {SITE.peopleHelped}+ people helped</p>
               <p className="pt-2 text-text-tertiary">$ cat contact.txt</p>
               <p>
                 <a href={LINKS.whatsapp} target="_blank" rel="noreferrer" className="text-accent-strong hover:underline">

@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, ArrowRight, ArrowLeft } from "lucide-react";
 import Reveal from "@/components/site/Reveal";
-import Label from "@/components/site/Label";
 import { PREFILL_EVENT } from "@/lib/intake";
 import { track } from "@/lib/analytics";
 import { captureUtm, getSessionId } from "@/lib/utm";
@@ -118,19 +117,19 @@ export default function ProjectIntake() {
 
   return (
     <section id="start" className="section">
-      <div className="wrap">
-        <Reveal className="mx-auto max-w-3xl text-center">
-          <Label>Start a project</Label>
-          <h2 className="mt-6 font-display text-[clamp(2.3rem,5vw,4rem)] font-bold leading-[1] tracking-[-0.035em]">
+      <div className="wrap grid gap-12 lg:grid-cols-12 lg:gap-8">
+        <Reveal className="lg:col-span-5">
+          <p className="eyebrow">05 · Start a project</p>
+          <h2 className="mt-5 font-display text-[clamp(2.2rem,4.6vw,3.6rem)] font-bold leading-[1.02] tracking-[-0.03em]">
             Tell us what you need.
           </h2>
-          <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-text-secondary">
+          <p className="mt-6 max-w-[28rem] text-lg leading-relaxed text-text-secondary">
             Four short steps. We read every one and reply with next steps, or an honest &ldquo;this isn&apos;t for us&rdquo;.
           </p>
         </Reveal>
 
-        <Reveal delay={0.08} className="mx-auto mt-12 max-w-3xl">
-        <div className="rounded-[32px] border border-border bg-bg-elevated p-6 shadow-[0_30px_80px_-50px_rgba(22,22,26,0.4)] sm:p-10">
+        <Reveal delay={0.08} className="lg:col-span-7">
+        <div className="rounded-[28px] border border-border bg-bg-elevated p-6 sm:p-9">
           {step < 5 && (
             <div className="mb-8 flex items-center gap-1.5">
               {[1, 2, 3, 4].map((s) => (

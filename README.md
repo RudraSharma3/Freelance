@@ -11,26 +11,24 @@ Light only: off-white page, white rounded cards, one vermilion accent (`--accent
 `src/app/globals.css`), Bricolage Grotesque for headings and Inter for text. The colour tokens
 are shared with the admin dashboard, so change values, not names.
 
-Scrolling is smoothed with [Lenis](https://github.com/darkroomengineering/lenis) for mouse
-wheels and trackpads (touch stays native). Anchor links and every "Start a project" button
-glide to their section. The page, top to bottom:
+The page scrolls like one story:
 
-1. **Hero** — centred; the headline rises word by word on load and drifts up as you scroll
-   away. A band of service names moves underneath and speeds up with your scrolling.
-2. **Start here** — a problem picker: choose a line on the left and the answer card on the
-   right swaps in place, with a button that pre-fills the project form.
-3. **Services** — on desktop the section pins and four service panels slide sideways as you
-   scroll down; on phones they stack. Each service opens a detail sheet.
-4. **Statement** — the "people helped" sentence fills in word by word as you scroll.
-5. **Under one roof** — a bento grid of six disciplines; each opens a sheet. No individual
-   profiles, on purpose.
-6. **Work** — hidden until `CASE_STUDIES` has client projects.
-7. **How we work** — seven step cards that stack on top of each other as you scroll.
-8. **Start a project** — the four-step form.
-9. **Contact** — a vermilion panel, then a footer with the company name set huge.
+1. **Opening** — plays once on load: label, headline, a line drawing in, then the rest.
+2. **Start here** — the intro stays put on the left while a "brief" scrolls on the right; each
+   problem row lands with the roles who pick it up.
+3. **Services** — four chapters alternating left and right, each with a drawn figure.
+4. **Proof** — the "people helped" number counts up.
+5. **Under one roof** — one card per discipline (design, development, testing, AI & data,
+   content, project management); each opens a sheet. No individual profiles, on purpose.
+6. **Work** — hidden until `CASE_STUDIES` has client projects; then tabs by type cross-fade
+   the list and each project opens a breakdown.
+7. **How we work** — seven steps, each stamped with who owns it.
+8. **Start a project** — the four-step form. Any service's button pre-selects it here.
+9. **Contact** — a full-height closing screen.
 
-Visitors who prefer reduced motion get no smooth scrolling, no pinned rail, no parallax and
-no word-by-word effects (`src/lib/motion.ts`, `MotionRoot.tsx`).
+Sections fade and rise as they scroll in (`src/components/site/Reveal.tsx`); details open in a
+sheet that slides up (`Sheet.tsx`, Esc or the backdrop closes it). `prefers-reduced-motion`
+turns the motion off.
 
 ## What's real vs. placeholder
 

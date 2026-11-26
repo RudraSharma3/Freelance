@@ -1,9 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import type { ReactNode } from "react";
 import type { ServiceGroup } from "@/data/services";
-import { useReduce } from "@/lib/motion";
 
 /**
  * Small drawn illustrations for each service group. They're diagrams of the
@@ -12,7 +11,7 @@ import { useReduce } from "@/lib/motion";
  */
 
 function Part({ i, children, className }: { i: number; children: ReactNode; className?: string }) {
-  const reduce = useReduce();
+  const reduce = useReducedMotion();
   return (
     <motion.div
       className={className}
@@ -86,14 +85,14 @@ function Browser() {
 
 function Table() {
   const before = [
-    ["blue tee", "12/03/24", "4,500"],
-    ["BLUE TEE ", "2024-03-12", "4500"],
-    ["Red cap", "", "3 200"],
-    ["red cap", "13-03-2024", "n/a"],
+    ["jaipur", "12/03/24", "4,500"],
+    ["JAIPUR ", "2024-03-12", "4500"],
+    ["Delhi", "", "3 200"],
+    ["delhi", "13-03-2024", "n/a"],
   ];
   const after = [
-    ["Blue tee", "2024-03-12", "4500"],
-    ["Red cap", "2024-03-13", "3200"],
+    ["Jaipur", "2024-03-12", "4500"],
+    ["Delhi", "2024-03-13", "3200"],
   ];
   const row = "grid grid-cols-[1.1fr_1.2fr_0.8fr] gap-2 px-3 py-2 text-[12px] tabular-nums";
   return (

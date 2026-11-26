@@ -5,8 +5,6 @@ import "./globals.css";
 import { SITE, LINKS } from "@/data/config";
 import PageViewTracker from "@/components/PageViewTracker";
 import EasterEgg from "@/components/easter-egg/EasterEgg";
-import SmoothScroll from "@/components/site/SmoothScroll";
-import MotionRoot from "@/components/site/MotionRoot";
 
 const bricolage = Bricolage_Grotesque({
   variable: "--font-bricolage",
@@ -20,7 +18,7 @@ const inter = Inter({
   display: "swap",
 });
 
-const TITLE = `${SITE.name} — Design, development & testing`;
+const TITLE = `${SITE.name} — Design, development & testing, Jaipur`;
 const SHARE_TITLE = `${SITE.name} — ${SITE.tagline}`;
 
 export const metadata: Metadata = {
@@ -31,8 +29,8 @@ export const metadata: Metadata = {
   },
   description: SITE.description,
   keywords: [
-    "freelance web development",
-    "website design",
+    "freelance web development Jaipur",
+    "website design Jaipur",
     "UI/UX design",
     "app testing QA",
     "college project development",
@@ -77,6 +75,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     url: SITE.url,
     email: LINKS.email,
     areaServed: "Worldwide",
+    address: { "@type": "PostalAddress", addressLocality: "Jaipur", addressCountry: "IN" },
   };
 
   return (
@@ -84,8 +83,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="antialiased">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
         <PageViewTracker />
-        <SmoothScroll />
-        <MotionRoot>{children}</MotionRoot>
+        {children}
         <EasterEgg />
         {/* Vercel Analytics: a supplementary, edge-collected reliability
             check alongside the custom dashboard — see README "Analytics
