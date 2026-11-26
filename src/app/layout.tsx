@@ -18,7 +18,7 @@ const inter = Inter({
   display: "swap",
 });
 
-const TITLE = `${SITE.name} — Design, development & testing, Jaipur`;
+const TITLE = `${SITE.name} — Design, development & testing`;
 const SHARE_TITLE = `${SITE.name} — ${SITE.tagline}`;
 
 export const metadata: Metadata = {
@@ -29,8 +29,8 @@ export const metadata: Metadata = {
   },
   description: SITE.description,
   keywords: [
-    "freelance web development Jaipur",
-    "website design Jaipur",
+    "freelance web development",
+    "website design",
     "UI/UX design",
     "app testing QA",
     "college project development",
@@ -75,7 +75,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     url: SITE.url,
     email: LINKS.email,
     areaServed: "Worldwide",
-    address: { "@type": "PostalAddress", addressLocality: "Jaipur", addressCountry: "IN" },
   };
 
   return (

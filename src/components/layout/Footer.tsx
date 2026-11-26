@@ -12,7 +12,7 @@ export default function Footer() {
               <Brand />
             </p>
             <p className="mt-1 text-sm text-text-secondary">
-              {SITE.role} · {SITE.location}
+              {SITE.role}
             </p>
           </div>
 

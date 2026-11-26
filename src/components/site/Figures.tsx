@@ -85,14 +85,14 @@ function Browser() {
 
 function Table() {
   const before = [
-    ["jaipur", "12/03/24", "4,500"],
-    ["JAIPUR ", "2024-03-12", "4500"],
-    ["Delhi", "", "3 200"],
-    ["delhi", "13-03-2024", "n/a"],
+    ["blue tee", "12/03/24", "4,500"],
+    ["BLUE TEE ", "2024-03-12", "4500"],
+    ["Red cap", "", "3 200"],
+    ["red cap", "13-03-2024", "n/a"],
   ];
   const after = [
-    ["Jaipur", "2024-03-12", "4500"],
-    ["Delhi", "2024-03-13", "3200"],
+    ["Blue tee", "2024-03-12", "4500"],
+    ["Red cap", "2024-03-13", "3200"],
   ];
   const row = "grid grid-cols-[1.1fr_1.2fr_0.8fr] gap-2 px-3 py-2 text-[12px] tabular-nums";
   return (

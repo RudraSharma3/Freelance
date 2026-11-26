@@ -20,7 +20,7 @@ export default function Opening() {
     <section id="top" className="relative flex min-h-svh flex-col justify-center pb-24 pt-28">
       <div className="wrap">
         <p className="eyebrow rise" style={d(0.3)}>
-          Freelance studio · Jaipur · Remote
+          Freelance studio · Working remotely
         </p>
         <h1
           className="rise mt-6 max-w-[16ch] font-display text-[clamp(3.1rem,9vw,7.75rem)] font-bold leading-[0.92] tracking-[-0.035em]"
@@ -33,7 +33,7 @@ export default function Opening() {
         <div className="mt-9 grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_17rem] lg:gap-16">
           <div>
             <p className="rise max-w-[38rem] text-lg leading-relaxed text-text-secondary sm:text-xl" style={d(1.2)}>
-              A small freelance team from Jaipur. Design, development and testing under one roof, with AI and data work when a
+              A small freelance team. Design, development and testing under one roof, with AI and data work when a
               project needs it. Websites and apps, college projects, data cleanup and automation, resumes and LinkedIn.
             </p>
             <div className="rise mt-8 flex flex-wrap items-center gap-3" style={d(1.45)}>
